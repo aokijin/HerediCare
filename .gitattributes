@@ -1,0 +1,4 @@
+# Tell GitHub to ignore these files when calculating the language bar
+*.html linguist-detectable=false
+*.css linguist-detectable=false
+*.js linguist-detectable=false
