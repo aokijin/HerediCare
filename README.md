@@ -24,4 +24,5 @@ The project focuses on the intersection of **Software Development** and **Social
 
 ## 🧑‍💻 Developer
 Alessandra Ashanti M. Abdon
+
 **Computer Science Student** | *Batangas State University*
