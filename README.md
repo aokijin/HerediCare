@@ -3,7 +3,7 @@
 **HerediCare** is a specialized web-based management system developed as a research prototype within the **College of Informatics and Computing Sciences** at **Batangas State University**.
 
 ## 📝 Project Description
-HerediCare is designed to streamline the management of medical or hereditary data through a secure and automated digital interface. As a **Computer Science student researcher**, I developed this system to address the need for structured data handling in specialized healthcare contexts.
+HerediCare is designed to streamline the management of medical or hereditary data through a secure and automated digital interface. As a **Computer Science student**, I developed this system to address the need for structured data handling in specialized healthcare contexts.
 
 A core component of this project is its **Risk Assessment** module. This feature is specifically designed to analyze hereditary patterns, allowing users to become more aware of potential health risks within their family. By providing these insights, the system aims to bridge the gap between data collection and proactive health awareness.
 
