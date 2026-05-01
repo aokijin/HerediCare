@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HerediCare – Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #e8294b;
+    --red-dark: #c41d3a;
+    --blue: #1e6fd9;
+    --teal: #0ea5a0;
+    --bg: #f0f4f8;
+    --white: #ffffff;
+    --text: #1a202c;
+    --muted: #718096;
+    --border: #e2e8f0;
+    --shadow: 0 4px 24px rgba(0,0,0,0.10);
+  }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(135deg, #e8f4fd 0%, #f0f4f8 50%, #fce8ed 100%);
+  }
+  .login-card {
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    padding: 48px 44px;
+    width: 420px;
+    max-width: 95vw;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+  .brand-icon {
+    width: 44px; height: 44px;
+    background: var(--red);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brand-icon svg { color: white; }
+  .brand-text h1 { font-family: 'Sora', sans-serif; font-size: 1.4rem; color: var(--red); }
+  .brand-text p { font-size: 0.75rem; color: var(--muted); margin-top: 1px; }
+  h2 { font-family: 'Sora', sans-serif; font-size: 1.6rem; color: var(--text); margin-bottom: 6px; }
+  .subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 32px; }
+  .field { margin-bottom: 20px; }
+  label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+  input[type=email], input[type=password] {
+    width: 100%; padding: 12px 14px;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    font-size: 0.95rem; font-family: inherit; color: var(--text);
+    background: #fafafa; transition: border-color .2s;
+  }
+  input:focus { outline: none; border-color: var(--blue); background: white; }
+  .btn-login {
+    width: 100%; padding: 13px;
+    background: var(--red); color: white;
+    border: none; border-radius: 10px;
+    font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 600;
+    cursor: pointer; transition: background .2s, transform .1s;
+    margin-top: 8px;
+  }
+  .btn-login:hover { background: var(--red-dark); }
+  .btn-login:active { transform: scale(.99); }
+  .demo-hint {
+    margin-top: 20px; padding: 12px 14px;
+    background: #f0f7ff; border-radius: 10px;
+    font-size: 0.82rem; color: var(--blue);
+    border: 1px solid #bfdbfe;
+  }
+  .error-msg {
+    margin-top: 12px; padding: 10px 14px;
+    background: #fff1f2; border-radius: 8px;
+    color: var(--red); font-size: 0.87rem; display: none;
+    border: 1px solid #fecdd3;
+  }
+</style>
+</head>
+<body>
+<div class="login-card">
+  <div class="brand">
+    <div class="brand-icon">
+      <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2.2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+      </svg>
+    </div>
+    <div class="brand-text">
+      <h1>HerediCare</h1>
+      <p>Patient Record System</p>
+    </div>
+  </div>
+  <h2>Welcome back</h2>
+  <p class="subtitle">Sign in to your healthcare dashboard</p>
+  <div class="field">
+    <label>Email Address</label>
+    <input type="email" id="email" placeholder="admin@batstateu.edu.ph" value="admin@batstateu.edu.ph">
+  </div>
+  <div class="field">
+    <label>Password</label>
+    <input type="password" id="password" placeholder="••••••••" value="admin123">
+  </div>
+  <button class="btn-login" onclick="doLogin()">Sign In</button>
+  <div class="error-msg" id="errorMsg"></div>
+  <div class="demo-hint">
+    <strong>Demo credentials:</strong> admin@batstateu.edu.ph / admin123
+  </div>
+</div>
+<script>
+async function doLogin() {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const err = document.getElementById('errorMsg');
+  err.style.display = 'none';
+  const r = await fetch('/login', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({email, password})
+  });
+  const data = await r.json();
+  if (data.success) {
+    window.location.href = '/dashboard';
+  } else {
+    err.textContent = data.message || 'Login failed.';
+    err.style.display = 'block';
+  }
+}
+document.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+</script>
+</body>
+</html>
